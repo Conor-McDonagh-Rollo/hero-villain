@@ -1,7 +1,15 @@
 #ifndef SYSTEMS_H
 #define SYSTEMS_H
 #include <iostream>
-#include <vector>
+
+enum class Weapon
+{
+    RUSTY_SWORD = 1,
+    IRON_SWORD = 2,
+    STEEL_SWORD = 3,
+    IRON_GREATSWORD = 4,
+    STEEL_GREATSWORD = 5
+};
 
 class Systems
 {
@@ -22,22 +30,14 @@ public:
         return false;
     }
 
-    /*
-        written in format:
-        { "How is the weather today?", "Good", "Bad", "", "" },
-        { "What was the answer to the assignment?", "A", "B", "C", "D" },
-        { "Which do you prefer?", "Sword", "Bow", "Axe", "" }
-    */
-    static void Question(const std::vector<std::vector<std::string>> &t_question)
+    static std::string GetHealthBar(int t_health)
     {
-        for (int i = 0; i < t_question.size(); i++)
+        std::string healthbar = "";
+        for (int i = 0; i < t_health / 10; i++)
         {
-            for (int j = 0; j < t_question[i].size(); j++)
-            {
-                std::cout << "\n" << t_question[i][0];
-                std::cout << "\n"
-            }
+            healthbar.append("=");
         }
+        return healthbar;
     }
 };
 

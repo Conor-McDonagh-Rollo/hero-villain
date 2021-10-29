@@ -40,6 +40,8 @@
         "xutility": "cpp",
         "cctype": "cpp",
         "string": "cpp",
-        "vector": "cpp"
-    }
+        "vector": "cpp",
+        "xmemory0": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

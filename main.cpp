@@ -10,8 +10,6 @@ int main()
 
 void Game::Run()
 {
-    m_player->AnnounceSelf();
-    m_enemy->AnnounceSelf();
     Menu();
 }
 
@@ -33,20 +31,59 @@ void Game::Menu()
         std::cout << m_player->name << ":\\>";
         int m = 0;
         std::cin >> m;
-        InputGood();
-        switch(m)
+        Systems::ClearBadInput();
+        switch (m)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                playing = false;
-                break;
-            default:
-                break;
+        case 1:
+            FindVillain();
+            break;
+        case 2:
+            break;
+        case 3:
+            playing = false;
+            break;
+        default:
+            break;
         }
     }
+}
+
+void Game::FindVillain()
+{
+    system("clear");
+    std::cout << "------------------------------\n";
+    std::cout << " Found '" << m_enemy->name << "'... Fight?\n";
+    std::cout << " 1) Yes\n";
+    std::cout << " 2) No\n";
+    std::cout << "------------------------------\n";
+    std::cout << m_player->name << ":\\>";
+    int m = 0;
+    std::cin >> m;
+    Systems::ClearBadInput();
+    switch (m)
+    {
+    case 1:
+        Encounter(m_enemy);
+        break;
+    default:
+        break;
+    }
+}
+
+void Game::Encounter(Character* t_enemy)
+{
+    system("clear");
+    std::cout << "------------------------------\n";
+    std::cout << t_enemy->name << ": " << t_enemy->AnnounceSelf() << "\n";
+    std::cout << "Health: " << Systems::GetHealthBar(t_enemy->health) << "\n";
+    std::cout << "------------------------------\n";
+    std::cout << m_player->name << ": " << m_player->AnnounceSelf() << "\n";
+    std::cout << "Health: " << Systems::GetHealthBar(m_player->health) << "\n";
+    std::cout << "------------------------------\n";
+    std::cout << m_player->name << ":\\>";
+    int m = 0;
+    std::cin >> m;
+    Systems::ClearBadInput();
 }
 
 void Game::FirstTime()
@@ -56,7 +93,7 @@ void Game::FirstTime()
     std::cout << "C:\\>";
     std::string s = "";
     std::cin >> s;
-    InputGood();
+    Systems::ClearBadInput();
     if (s == "")
         m_player->SetName("Hero");
     else
