@@ -35,7 +35,8 @@ public:
     }
     int AttackRoll()
     {
-        return (std::rand() % GetWeaponRoll() + 1) /*+ weapon*/;
+        int modifier = static_cast<int>(weapon);
+        return (std::rand() % GetWeaponRoll() + 1) + modifier;
     }
 
     //VARIABLES
@@ -69,7 +70,7 @@ public:
     Orc()
     {
         SetHealth(50);
-        if (name != "Person") SetName("Orc");
+        SetName("Orc");
     }
 
     //PURE VIRTUALS
@@ -88,13 +89,20 @@ public:
     bool playing{ true }; //Are we still playing this beautiful game?
 
     Character* m_player = new Player();
-    Character* m_enemy = new Orc();
-    Character* m_enemy2 = new Orc();
+    Character* m_enemy = nullptr;
 
     void FirstTime(); //LET THE GAMES VEGIN!!!!
     void Run(); //Run the game
     void Menu(); //Menu the game
     void FindVillain();
     void Encounter(Character* t_enemy);
+
+    Character* GenerateEnemy()
+    {
+        Character* gen;
+        int r = rand() % 1 + 1;
+        if (r == 1) gen = new Orc();
+        return gen;
+    }
 };
 #endif

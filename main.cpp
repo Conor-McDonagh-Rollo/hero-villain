@@ -50,6 +50,7 @@ void Game::Menu()
 
 void Game::FindVillain()
 {
+    m_enemy = GenerateEnemy();
     system("clear");
     std::cout << "------------------------------\n";
     std::cout << " Found '" << m_enemy->name << "'... Fight?\n";
@@ -72,18 +73,25 @@ void Game::FindVillain()
 
 void Game::Encounter(Character* t_enemy)
 {
-    system("clear");
-    std::cout << "------------------------------\n";
-    std::cout << t_enemy->name << ": " << t_enemy->AnnounceSelf() << "\n";
-    std::cout << "Health: " << Systems::GetHealthBar(t_enemy->health) << "\n";
-    std::cout << "------------------------------\n";
-    std::cout << m_player->name << ": " << m_player->AnnounceSelf() << "\n";
-    std::cout << "Health: " << Systems::GetHealthBar(m_player->health) << "\n";
-    std::cout << "------------------------------\n";
-    std::cout << m_player->name << ":\\>";
-    int m = 0;
-    std::cin >> m;
-    Systems::ClearBadInput();
+    bool ActiveEncounter = true;
+    while (ActiveEncounter)
+    {
+        system("clear");
+        std::cout << "------------------------------\n";
+        std::cout << t_enemy->name << ": " << t_enemy->AnnounceSelf() << "\n";
+        std::cout << "Health: " << Systems::GetHealthBar(t_enemy->health) << "\n";
+        std::cout << "------------------------------\n";
+        std::cout << m_player->name << ": " << m_player->AnnounceSelf() << "\n";
+        std::cout << "Health: " << Systems::GetHealthBar(m_player->health) << "\n";
+        std::cout << "------------------------------\n";
+        std::cout << m_player->name << ":\\>";
+        int m = 0;
+        std::cin >> m;
+        Systems::ClearBadInput();
+
+    }
+    free(t_enemy);
+    m_enemy = nullptr;
 }
 
 void Game::FirstTime()
