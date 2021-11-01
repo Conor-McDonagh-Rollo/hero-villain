@@ -2,10 +2,20 @@
 #define MAIN_H
 #include <iostream>
 #include <cstdlib>
+#include <time.h>
 #include "systems.h"
 
 class Character
 {
+private:
+    int GetWeaponRoll()
+    {
+        if (weapon == Weapon::RUSTY_SWORD) return 4;
+        if (weapon == Weapon::IRON_SWORD) return 4;
+        if (weapon == Weapon::STEEL_SWORD) return 6;
+        if (weapon == Weapon::IRON_GREATSWORD) return 8;
+        if (weapon == Weapon::STEEL_GREATSWORD) return 12;
+    }
 public:
     //CONSTRUCTORS
     Character() {}
@@ -25,13 +35,9 @@ public:
         if (weapon == Weapon::IRON_GREATSWORD) return "Iron GreatSword";
         if (weapon == Weapon::STEEL_GREATSWORD) return "Steel GreatSword";
     }
-    int GetWeaponRoll()
+    void TakeDamage(int t_dmg)
     {
-        if (weapon == Weapon::RUSTY_SWORD) return 4;
-        if (weapon == Weapon::IRON_SWORD) return 4;
-        if (weapon == Weapon::STEEL_SWORD) return 6;
-        if (weapon == Weapon::IRON_GREATSWORD) return 8;
-        if (weapon == Weapon::STEEL_GREATSWORD) return 12;
+        health -= t_dmg;
     }
     int AttackRoll()
     {
@@ -55,6 +61,7 @@ public:
     Player()
     {
         SetHealth(100);
+        SetArmourClass(12);
     }
 
     //PURE VIRTUALS
@@ -70,6 +77,8 @@ public:
     Orc()
     {
         SetHealth(50);
+        SetArmourClass(7);
+        SetWeapon(Weapon::RUSTY_SWORD);
         SetName("Orc");
     }
 
@@ -91,11 +100,14 @@ public:
     Character* m_player = new Player();
     Character* m_enemy = nullptr;
 
+    int playerGold = 0;
+
     void FirstTime(); //LET THE GAMES VEGIN!!!!
     void Run(); //Run the game
     void Menu(); //Menu the game
     void FindVillain();
     void Encounter(Character* t_enemy);
+    std::string RandomLoot();
 
     Character* GenerateEnemy()
     {
