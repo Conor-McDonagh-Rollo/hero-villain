@@ -2,7 +2,7 @@
 #define SYSTEMS_H
 #include <iostream>
 
-enum class Weapon
+enum class Weapon // THE WEAPONS
 {
     RUSTY_SWORD = 1,
     IRON_SWORD = 2,
@@ -14,7 +14,7 @@ enum class Weapon
 class Systems
 {
 public:
-    static void ClearBadInput()
+    static void ClearBadInput() // Get rid of garbage input for cin
     {
         while (!std::cin.good())
         {
@@ -23,17 +23,10 @@ public:
         }
     }
 
-    static bool InputGood()
-    {
-        if (std::cin.good())
-            return true;
-        return false;
-    }
-
-    static std::string GetHealthBar(int t_health)
+    static std::string GetHealthBar(int t_health) // RETURN THE HEALTH (divided)
     {
         std::string healthbar = "";
-        for (int i = 0; i < t_health / 10; i++)
+        for (int i = 0; i < t_health / 2; i++)
         {
             healthbar.append("=");
         }
