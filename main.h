@@ -131,7 +131,7 @@ public:
 class Beholder : public Character
 {
 public:
-    Bear()
+    Beholder()
     {
         SetHealth(25);
         SetArmourClass(12);
@@ -155,7 +155,7 @@ public:
 class MindFlayer : public Character
 {
 public:
-    Bear()
+    MindFlayer()
     {
         SetHealth(35);
         SetArmourClass(15);

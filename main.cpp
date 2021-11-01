@@ -129,7 +129,7 @@ void Game::FindVillain()
 
 void Game::Encounter(Character* t_enemy)
 {
-    m_player->SetHealth(100);
+    m_player->SetHealth(30);
     bool ActiveEncounter = true;
     bool BlockedAttack = false;
     while (ActiveEncounter) // encounter loop
@@ -157,14 +157,14 @@ void Game::Encounter(Character* t_enemy)
             int dmg = t_enemy->AttackRoll();
             if (dmg > m_player->armourClass/2)
             {
-              std::cout << "\nYour parry fails and '" << t_enemy->name << "' attacks you and deals " << dmg << " damage.";
+              std::cout << "\nYour parry fails and '" << t_enemy->name << "' attacks you and deals " << dmg << " damage.\n";
               m_player->TakeDamage(dmg);
               break;
             }
             else
             {
               BlockedAttack = true;
-              std::cout << "\nYou parry '" << t_enemy->name << "' stunning them!";
+              std::cout << "\nYou parry '" << t_enemy->name << "' stunning them!\n";
             }
             break;
           }
@@ -177,18 +177,18 @@ void Game::Encounter(Character* t_enemy)
           default:
           {
             int dmg = m_player->AttackRoll();
-            std::cout << "\nYou attack '" << t_enemy->name << "' and deal " << dmg << " damage.";
+            std::cout << "\nYou attack '" << t_enemy->name << "' and deal " << dmg << " damage.\n";
             t_enemy->TakeDamage(dmg);
             if (!BlockedAttack)
             {
               dmg = t_enemy->AttackRoll();
-              std::cout << "\n'" << t_enemy->name << "' attacks you and deals " << dmg << " damage.";
+              std::cout << "\n'" << t_enemy->name << "' attacks you and deals " << dmg << " damage.\n";
               m_player->TakeDamage(dmg);
             }
             else
             {
               BlockedAttack = false;
-              std::cout << "\n" << t_enemy->name << " is still stunned from the previous parry!";
+              std::cout << "\n" << t_enemy->name << " is still stunned from the previous parry!\n";
             }
             break;
           }
@@ -197,14 +197,14 @@ void Game::Encounter(Character* t_enemy)
         if (t_enemy->health <= 0) // Enemy has died
         {
           std::cout << "\n" << t_enemy->AnnounceDeath(); // loot
-          std::cout << "\n" << t_enemy->name << " was defeated and you have received " << RandomLoot();
+          std::cout << "\n" << t_enemy->name << " was defeated and you have received " << RandomLoot() << std::endl;
           ActiveEncounter = false;
           system("cmd /C pause");
         }
         else if (m_player->health <= 0) // you have died!
         {
-          std::cout << "\n" << t_player->AnnounceDeath();
-          std::cout << "\nYou have died!";
+          std::cout << "\n" << m_player->AnnounceDeath();
+          std::cout << "\nYou have died!\n";
           system("cmd /C pause");
           playing = false;
           ActiveEncounter = false;
